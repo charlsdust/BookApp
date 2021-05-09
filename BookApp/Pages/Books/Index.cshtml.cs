@@ -19,12 +19,23 @@ namespace BookApp.Pages.Books
             _context = context;
         }
 
-        public IList<Book> Book { get;set; }
+        public IList<IndexDisplayModel> Books { get;set; }
 
         public async Task OnGetAsync()
         {
-            Book = await _context.Books
-                .Include(b => b.Publisher).ToListAsync();
+            IQueryable<IndexDisplayModel> BookIQ = _context.Books
+                  .Select(p => new IndexDisplayModel
+                  {
+                      ID=p.ID,
+                      Title=p.Title,
+                      TotalPages=p.TotalPages,
+                      Name=p.Publisher.Name,
+                      Rating=p.Rating,
+                      ISBN=p.ISBN,
+                      DatePublished=p.DatePublished,
+                      
+                  });
+            Books = await BookIQ.AsNoTracking().ToListAsync();
         }
     }
 }

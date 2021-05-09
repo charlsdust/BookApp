@@ -11,7 +11,7 @@ using BookApp.Models;
 
 namespace BookApp.Pages.Books
 {
-    public class EditModel : PageModel
+    public class EditModel : PublisherBookModel
     {
         private readonly BookApp.Data.BookAppContext _context;
 
@@ -37,43 +37,42 @@ namespace BookApp.Pages.Books
             {
                 return NotFound();
             }
-           ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "ID");
+            PopulateKoloryDropDownList(_context,Book.PublisherID);
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return Page();
+                return NotFound();
+            }
+            var bookToUpdate = await _context.Books.FindAsync(id);
+
+            if (bookToUpdate == null)
+            {
+                return NotFound();
             }
 
-            _context.Attach(Book).State = EntityState.Modified;
-
-            try
+            if (await TryUpdateModelAsync<Book>(
+                 bookToUpdate,
+                 "book",   // Prefix for form value.
+                   s => s.Title, s => s.TotalPages, s => s.Rating, s => s.ISBN, s => s.DatePublished, s => s.PublisherID))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookExists(Book.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
+            // Select DepartmentID if TryUpdateModelAsync fails.
+            PopulateKoloryDropDownList(_context, bookToUpdate.PublisherID);
+            return Page();
         }
 
-        private bool BookExists(int id)
-        {
-            return _context.Books.Any(e => e.ID == id);
-        }
+        //private bool BookExists(int id)
+        //{
+        //    return _context.Books.Any(e => e.ID == id);
+        //}
     }
 }

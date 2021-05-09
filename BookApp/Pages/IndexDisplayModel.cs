@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookApp.Models
+namespace BookApp.Pages
 {
-    public class Book
+    public class IndexDisplayModel:PageModel
     {
         public int ID { get; set; }
         public string Title { get; set; }
@@ -13,8 +14,6 @@ namespace BookApp.Models
         public byte Rating { get; set; }
         public string ISBN { get; set; }
         public DateTime DatePublished { get; set; }
-        public int PublisherID { get; set; }
-        public Publisher Publisher { get; set; }
         public string Name { get; set; }
     }
 }
