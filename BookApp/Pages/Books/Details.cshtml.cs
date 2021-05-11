@@ -22,6 +22,7 @@ namespace BookApp.Pages.Books
         public Book Book { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
+        
         {
             if (id == null)
             {

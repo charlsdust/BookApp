@@ -10,7 +10,7 @@ using BookApp.Models;
 
 namespace BookApp.Pages.Books
 {
-    public class IndexModel : PageModel
+    public class IndexModel : IndexDisplayModel
     {
         private readonly BookApp.Data.BookAppContext _context;
 

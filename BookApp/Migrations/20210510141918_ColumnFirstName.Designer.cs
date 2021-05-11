@@ -4,14 +4,16 @@ using BookApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookApp.Migrations
 {
     [DbContext(typeof(BookAppContext))]
-    partial class BookAppContextModelSnapshot : ModelSnapshot
+    [Migration("20210510141918_ColumnFirstName")]
+    partial class ColumnFirstName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,13 +49,13 @@ namespace BookApp.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuthorID")
+                    b.Property<int?>("AuthorID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DatePublished")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("GenreID")
+                    b.Property<int?>("GenreID")
                         .HasColumnType("int");
 
                     b.Property<string>("ISBN")
@@ -114,27 +116,19 @@ namespace BookApp.Migrations
 
             modelBuilder.Entity("BookApp.Models.Book", b =>
                 {
-                    b.HasOne("BookApp.Models.Author", "Author")
+                    b.HasOne("BookApp.Models.Author", null)
                         .WithMany("Books")
-                        .HasForeignKey("AuthorID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AuthorID");
 
-                    b.HasOne("BookApp.Models.Genre", "Genre")
+                    b.HasOne("BookApp.Models.Genre", null)
                         .WithMany("books")
-                        .HasForeignKey("GenreID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("GenreID");
 
                     b.HasOne("BookApp.Models.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Genre");
 
                     b.Navigation("Publisher");
                 });

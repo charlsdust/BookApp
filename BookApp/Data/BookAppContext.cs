@@ -16,11 +16,15 @@ namespace BookApp.Data
 
         public DbSet<BookApp.Models.Book> Books { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<Author> Authors { get; set; }
+        public DbSet<Genre> Genres { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>().ToTable("Book");
             modelBuilder.Entity<Publisher>().ToTable("Publisher");
-            
+            modelBuilder.Entity<Author>().ToTable("Author");
+            modelBuilder.Entity<Genre>().ToTable("Genre");
+
         }
     }
 }

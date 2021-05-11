@@ -37,7 +37,7 @@ namespace BookApp.Pages.Books
             {
                 return NotFound();
             }
-            PopulateKoloryDropDownList(_context,Book.PublisherID);
+            PopulatePublisherDropDownList(_context,Book.PublisherID);
             return Page();
         }
 
@@ -66,7 +66,7 @@ namespace BookApp.Pages.Books
             }
 
             // Select DepartmentID if TryUpdateModelAsync fails.
-            PopulateKoloryDropDownList(_context, bookToUpdate.PublisherID);
+            PopulatePublisherDropDownList(_context, bookToUpdate.PublisherID);
             return Page();
         }
 

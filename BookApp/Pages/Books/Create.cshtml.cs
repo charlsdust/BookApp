@@ -23,7 +23,9 @@ namespace BookApp.Pages.Books
 
         public IActionResult OnGet()
         {
-            PopulateKoloryDropDownList(_context);
+            PopulatePublisherDropDownList(_context);
+            PopulateAuthorDropDownList(_context);
+            PopulateGenreDropDownList(_context);
             return Page();
         }
 
@@ -37,13 +39,15 @@ namespace BookApp.Pages.Books
             if (await TryUpdateModelAsync<Book>(
                 emptyBook,
                 "book",
-               s=>s.Title,s=>s.TotalPages,s=>s.Rating,s => s.ISBN,s => s.DatePublished,s => s.PublisherID))
+               s=>s.Title,s=>s.TotalPages,s=>s.Rating,s => s.ISBN,s => s.DatePublished,s => s.PublisherID,s => s.AuthorID,s => s.GenreID))
             {
                 _context.Books.Add(emptyBook);
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
-            PopulateKoloryDropDownList(_context, emptyBook.PublisherID);
+            PopulatePublisherDropDownList(_context, emptyBook.PublisherID);
+            PopulateAuthorDropDownList(_context, emptyBook.AuthorID);
+            PopulateGenreDropDownList(_context, emptyBook.GenreID);
             return Page();
         }
     }
