@@ -38,6 +38,8 @@ namespace BookApp.Pages.Books
                 return NotFound();
             }
             PopulatePublisherDropDownList(_context,Book.PublisherID);
+            PopulateAuthorDropDownList(_context, Book.AuthorID);
+            PopulateGenreDropDownList(_context, Book.GenreID);
             return Page();
         }
 
@@ -59,14 +61,17 @@ namespace BookApp.Pages.Books
             if (await TryUpdateModelAsync<Book>(
                  bookToUpdate,
                  "book",   // Prefix for form value.
-                   s => s.Title, s => s.TotalPages, s => s.Rating, s => s.ISBN, s => s.DatePublished, s => s.PublisherID))
+                   s => s.Title, s => s.TotalPages, s => s.Rating, s => s.ISBN,
+                   s => s.DatePublished, s => s.PublisherID,s => s.AuthorID,s =>s.GenreID))
             {
                 await _context.SaveChangesAsync();
                 return RedirectToPage("./Index");
             }
 
-            // Select DepartmentID if TryUpdateModelAsync fails.
+             
             PopulatePublisherDropDownList(_context, bookToUpdate.PublisherID);
+            PopulateAuthorDropDownList(_context, bookToUpdate.AuthorID);
+            PopulateGenreDropDownList(_context, bookToUpdate.GenreID);
             return Page();
         }
 

@@ -45,6 +45,16 @@
                 <span asp-validation-for="Book.PublisherID" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Book.AuthorID" class="control-label"></label>
+                <select asp-for="Book.AuthorID" class="form-control" asp-items="Model.AuthorSL"></select>
+                <span asp-validation-for="Book.AuthorID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Book.GenreID" class="control-label"></label>
+                <select asp-for="Book.GenreID" class="form-control" asp-items="Model.GenreSL"></select>
+                <span asp-validation-for="Book.GenreID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
