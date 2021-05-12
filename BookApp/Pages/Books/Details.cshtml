@@ -18,6 +18,18 @@
             @Html.DisplayFor(model => model.Book.Title)
         </dd>
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.GenreName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.GenreName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.AuthorName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.AuthorName)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Book.TotalPages)
         </dt>
         <dd class="col-sm-10">
@@ -42,11 +54,12 @@
             @Html.DisplayFor(model => model.Book.DatePublished)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Book.Publisher)
+            @Html.DisplayNameFor(model => model.PublisherName)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Book.Publisher.Name)
+            @Html.DisplayFor(model => model.Book.PublisherName)
         </dd>
+
     </dl>
 </div>
 <div>

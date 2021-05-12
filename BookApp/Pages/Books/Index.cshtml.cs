@@ -28,9 +28,9 @@ namespace BookApp.Pages.Books
                   {
                       ID=p.ID,
                       Title=p.Title,
-                      TotalPages=p.TotalPages,
-                      Name=p.Publisher.Name,
-                      Rating=p.Rating,
+                      AuthorFullName=p.Author.FirstName+" "+p.Author.MiddleName+" "+p.Author.LastName,
+                      PublisherName=p.Publisher.PublisherName,
+                      Genre=p.Genre.GenreName,
                       ISBN=p.ISBN,
                       DatePublished=p.DatePublished,
                       

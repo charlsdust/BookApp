@@ -19,11 +19,11 @@ namespace BookApp.Pages
             object selectPublisher = null)
         {
             var publisherQuery = from d in _context.Publishers
-                                 orderby d.Name // Sort by name.
+                                 orderby d.PublisherName // Sort by name.
                                  select d;
 
             PublisherSL = new SelectList(publisherQuery.AsNoTracking(),
-                        "ID", "Name", selectPublisher);
+                        "ID", "PublisherName", selectPublisher);
         }
 
         public void PopulateAuthorDropDownList(BookAppContext _context,
