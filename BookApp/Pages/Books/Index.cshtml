@@ -14,22 +14,32 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Books[0].Title)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort">
+                    @Html.DisplayNameFor(model => model.Books[0].Title)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Books[0].AuthorFullName)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.AuthorSort">
+                    @Html.DisplayNameFor(model => model.Books[0].AuthorFullName)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Books[0].Genre)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.GenreSort">
+                    @Html.DisplayNameFor(model => model.Books[0].Genre)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Books[0].ISBN)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Books[0].DatePublished)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.DateSort" >
+                    @Html.DisplayNameFor(model => model.Books[0].DatePublished)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Books[0].PublisherName)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.PublisherSort">
+                    @Html.DisplayNameFor(model => model.Books[0].PublisherName)
+                </a>
             </th>
             <th></th>
         </tr>
