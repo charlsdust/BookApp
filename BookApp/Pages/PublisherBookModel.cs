@@ -19,7 +19,7 @@ namespace BookApp.Pages
             object selectPublisher = null)
         {
             var publisherQuery = from d in _context.Publishers
-                                 orderby d.PublisherName // Sort by name.
+                                 orderby d.PublisherName  
                                  select d;
 
             PublisherSL = new SelectList(publisherQuery.AsNoTracking(),
@@ -30,11 +30,10 @@ namespace BookApp.Pages
             object selectAuthor = null)
         {
             var authorQuery = from d in _context.Authors
-                              orderby d.LastName // Sort by name.
+                              orderby d.LastName  
                               select d;
 
-            ///AuthorSL = new SelectList(authorQuery.AsNoTracking(),
-            ///"ID", "LastName", selectAuthor);
+             
             AuthorSL = new SelectList((from d in _context.Authors.ToList()
                                        select new
                                        {
