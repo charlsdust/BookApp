@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BookApp.Data;
 using BookApp.Models;
 
-namespace BookApp.Pages.Authors
+namespace BookApp.Pages.Genres
 {
     public class DetailsModel : PageModel
     {
@@ -19,7 +19,7 @@ namespace BookApp.Pages.Authors
             _context = context;
         }
 
-        public Author Author { get; set; }
+        public Genre Genre { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,9 +28,9 @@ namespace BookApp.Pages.Authors
                 return NotFound();
             }
 
-            Author = await _context.Authors.Include(b=>b.Books).FirstOrDefaultAsync(m => m.ID == id);
+            Genre = await _context.Genres.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Author == null)
+            if (Genre == null)
             {
                 return NotFound();
             }

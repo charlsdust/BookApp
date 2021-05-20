@@ -7,9 +7,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BookApp.Data;
 using BookApp.Models;
-using BookApp.ViewModels;
 
-namespace BookApp.Pages.Authors
+namespace BookApp.Pages.Genres
 {
     public class IndexModel : PageModel
     {
@@ -20,19 +19,11 @@ namespace BookApp.Pages.Authors
             _context = context;
         }
 
-        public IList<AuthorIndexModel> Authors { get;set; }
+        public IList<Genre> Genre { get;set; }
 
         public async Task OnGetAsync()
         {
-            IQueryable<AuthorIndexModel> AuthorsIQ =
-                from author in _context.Authors
-                
-                select new AuthorIndexModel()
-                { AuthorFullName=author.FirstName+" "+author.MiddleName+" "+author.LastName,
-                BooksCount=author.Books.Count(),
-                ID=author.ID
-                };
-            Authors = await AuthorsIQ.ToListAsync();
+            Genre = await _context.Genres.ToListAsync();
         }
     }
 }

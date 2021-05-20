@@ -10,7 +10,7 @@ namespace BookApp.Models
     {
         public int ID { get; set; }
         [StringLength(50, MinimumLength = 3, ErrorMessage = "First name cannot be longer than 50 characters.")]
-        [Display(Name = "Publisher Name")]
+        [Display(Name = "Genre Name")]
         public string GenreName { get; set; }
         public ICollection<Book> books { get; set; }
     }
