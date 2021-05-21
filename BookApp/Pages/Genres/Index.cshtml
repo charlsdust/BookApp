@@ -14,16 +14,28 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Genre[0].GenreName)
+                @Html.DisplayNameFor(model => model.Genres[0].GenreName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genres[0].BooksCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Genres[0].AuthorsCount)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Genre) {
+@foreach (var item in Model.Genres) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.GenreName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BooksCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AuthorsCount)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

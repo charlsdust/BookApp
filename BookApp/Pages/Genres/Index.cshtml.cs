@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BookApp.Data;
 using BookApp.Models;
+using BookApp.ViewModels;
 
 namespace BookApp.Pages.Genres
 {
@@ -19,11 +20,23 @@ namespace BookApp.Pages.Genres
             _context = context;
         }
 
-        public IList<Genre> Genre { get;set; }
+        public IList<GenreIndexModel> Genres { get; set; }
 
         public async Task OnGetAsync()
         {
-            Genre = await _context.Genres.ToListAsync();
+            IQueryable<GenreIndexModel> GenredIQ =
+                from b in _context.Books
+                group new { b.Genre, b, b.Author } by new { b.Genre.ID, b.Genre.GenreName } into groping
+                select new GenreIndexModel()
+                {
+                    ID = groping.Key.ID,
+                    GenreName = groping.Key.GenreName,
+
+                    BooksCount = groping.Select(b => b.b.ID).Distinct().Count(),
+                    AuthorsCount = groping.Select(a => a.Author.ID).Distinct().Count()
+                };
+            Genres = await GenredIQ.ToListAsync();
+
         }
     }
 }
