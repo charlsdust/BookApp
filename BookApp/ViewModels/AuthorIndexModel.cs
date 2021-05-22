@@ -13,5 +13,9 @@ namespace BookApp.ViewModels
         public int ID { get; set; }
         [Display(Name = "Books Count")]
         public int BooksCount { get; set; }
+        [Display(Name = "Genres Count")]
+        public int GenresCount { get; set; }
+        [Display(Name = "Publishers Count")]
+        public int PublishersCount { get; set; }
     }
 }

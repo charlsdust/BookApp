@@ -19,7 +19,13 @@
             <th>
                 @Html.DisplayNameFor(model => model.Authors[0].BooksCount)
             </th>
-          
+            <th>
+                @Html.DisplayNameFor(model => model.Authors[0].GenresCount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Authors[0].PublishersCount)
+            </th>
+
             <th></th>
         </tr>
     </thead>
@@ -32,7 +38,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.BooksCount)
             </td>
-            
+            <td>
+                @Html.DisplayFor(modelItem => item.GenresCount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PublishersCount)
+            </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |

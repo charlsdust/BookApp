@@ -20,7 +20,8 @@ namespace BookApp.Pages.Authors
         }
 
         public Author Author { get; set; }
-
+        public IList<Genre> Genres { get; set; }
+        public IList<Publisher> Publishers { get; set; }
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
@@ -29,6 +30,23 @@ namespace BookApp.Pages.Authors
             }
 
             Author = await _context.Authors.Include(b=>b.Books).FirstOrDefaultAsync(m => m.ID == id);
+            var GenreIQ = from b in _context.Books
+                          where b.AuthorID == id
+                          select new Genre()
+                          {
+                              GenreName = b.Genre.GenreName,
+                              ID = b.Genre.ID
+                          };
+            Genres = await GenreIQ.Distinct().ToListAsync();
+            var PublishersIQ = from b in _context.Books
+                               where b.AuthorID == id
+                               select new Publisher()
+                               {
+                                   PublisherName = b.Publisher.PublisherName,
+                                   ID = b.Publisher.ID
+                               };
+            Publishers = await PublishersIQ.Distinct().ToListAsync();
+
 
             if (Author == null)
             {
