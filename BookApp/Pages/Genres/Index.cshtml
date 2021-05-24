@@ -10,39 +10,87 @@
 <p>
     <a asp-page="Create">Create New</a>
 </p>
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by  name of genre:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Genres[0].GenreName)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.GenreNameSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Genres[0].GenreName)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genres[0].BooksCount)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.BooksCountSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Genres[0].BooksCount)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Genres[0].AuthorsCount)
+                <a asp-page="./Index" asp-route-sortOrder="@Model.AuthorsCountSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Genres[0].AuthorsCount)
+                </a>
+            </th>
+            <th>
+                <a asp-page="./Index" asp-route-sortOrder="@Model.PublishersCountSort"
+                   asp-route-currentFilter="@Model.CurrentFilter">
+                    @Html.DisplayNameFor(model => model.Genres[0].PublishersCount)
+                </a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Genres) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.GenreName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.BooksCount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AuthorsCount)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Genres)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GenreName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BooksCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AuthorsCount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PublishersCount)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+@{
+    var prevDisabled = !Model.Genres.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.Genres.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Genres.PageIndex - 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @prevDisabled">
+    Previous
+</a>
+<a asp-page="./Index"
+   asp-route-sortOrder="@Model.CurrentSort"
+   asp-route-pageIndex="@(Model.Genres.PageIndex + 1)"
+   asp-route-currentFilter="@Model.CurrentFilter"
+   class="btn btn-primary @nextDisabled">
+    Next
+</a>
