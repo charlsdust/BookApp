@@ -17,17 +17,51 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Genre.GenreName)
         </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Genre.books)
+        </dt>
+        <dd class="col-sm-10"></dd>
         @foreach (var item in Model.Genre.books)
         {
 
             <dd class="col-sm-10">
-                <a asp-page="/Books/Details" asp-route-id="@item.ID"> @Html.DisplayFor(modelItem => item.Title)</a>
-                <a asp-page="/Authors/Details" asp-route-id="@item.Author.ID"> @Html.DisplayFor(modelItem => item.Author.LastName)</a>
+                &#8226<a asp-page="/Books/Details" asp-route-id="@item.ID">  @Html.DisplayFor(modelItem => item.Title)</a>
+
             </dd>
-            
+
 
         }
-     
+        <dt class="col-sm-2"></dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Authors)
+        </dt>
+        <dd class="col-sm-10"></dd>
+        @foreach (var item in Model.Authors)
+        {
+
+            <dd class="col-sm-10">
+                &#8226<a asp-page="/Authors/Details" asp-route-id="@item.ID">  @Html.DisplayFor(modelItem => item.FirstName) @Html.DisplayFor(modelItem => item.LastName)</a>
+
+            </dd>
+
+
+        }
+        <dt class="col-sm-2"></dt>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Publishers)
+        </dt>
+        <dd class="col-sm-10"></dd>
+        @foreach (var item in Model.Publishers)
+        {
+
+            <dd class="col-sm-10">
+                &#8226<a asp-page="/Publishers/Details" asp-route-id="@item.ID">  @Html.DisplayFor(modelItem => item.PublisherName) </a>
+
+            </dd>
+
+
+        }
+
     </dl>
 </div>
 
