@@ -20,6 +20,8 @@ namespace BookApp.Pages.Publishers
         }
 
         public Publisher Publisher { get; set; }
+        public IList<Genre> Genres { get; set; }
+        public IList<Author> Authors { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -28,8 +30,24 @@ namespace BookApp.Pages.Publishers
                 return NotFound();
             }
 
-            Publisher = await _context.Publishers.FirstOrDefaultAsync(m => m.ID == id);
-
+            Publisher = await _context.Publishers.Include(b=>b.Books).FirstOrDefaultAsync(m => m.ID == id);
+            var GenreIQ = from b in _context.Books
+                          where b.PublisherID == id
+                          select new Genre()
+                          {
+                              GenreName = b.Genre.GenreName,
+                              ID = b.Genre.ID
+                          };
+            Genres = await GenreIQ.Distinct().ToListAsync();
+            var AuthorsIQ = from b in _context.Books
+                            where b.PublisherID == id
+                            select new Author()
+                            {
+                                FirstName = b.Author.FirstName,
+                                LastName = b.Author.LastName,
+                                ID = b.Author.ID
+                            };
+            Authors = await AuthorsIQ.Distinct().ToListAsync();
             if (Publisher == null)
             {
                 return NotFound();
